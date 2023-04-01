@@ -3,7 +3,7 @@ var colors = ['blue', 'green', 'white', 'yellow', 'orange', 'red'],
 var emp = ['un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf'],
 		pieces = document.getElementsByClassName('piece');
 
-// Returns j-th adjacent face of i-th face
+// Renvoie la j-ième face adjacente à la i-ième face
 function mx(i, j) {
 	return ([2, 4, 3, 5][j % 4 |0] + i % 2 * ((j|0) % 4 * 2 + 3) + 2 * (i / 2 |0)) % 6;
 }
@@ -12,7 +12,7 @@ function getAxis(face) {
 	return String.fromCharCode('X'.charCodeAt(0) + face / 2); // X, Y or Z
 }
 
-// Moves each of 26 pieces to their places, assigns IDs and attaches stickers
+// Déplace chacune des 26 pièces à sa place, attribue des identifiants et colle des autocollants
 function assembleCube() {
 	function moveto(face) {
 		id = id + (1 << face);
@@ -36,7 +36,7 @@ function getPieceBy(face, index, corner) {
 		((1 << face) + (1 << mx(face, index)) + (1 << mx(face, index + 1)) * corner));
 }
 
-// Swaps stickers of the face (by clockwise) stated times, thereby rotates the face
+// Intervertit les autocollants
 function swapPieces(face, times) {
 	for (var i = 0; i < 6 * times; i++) {
 		var piece1 = getPieceBy(face, i / 2, i % 2),
@@ -55,7 +55,7 @@ function swapPieces(face, times) {
 
 
 
-// Animates rotation of the face (by clockwise if cw), and then swaps stickers
+// Anime la rotation et échange les autocollants
 function animateRotation(face, cw, currentTime) {
 	var k = .3 * (face % 2 * 2 - 1) * (2 * cw - 1),
 			qubes = Array(9).fill(pieces[face]).map(function (value, index) {
@@ -72,8 +72,6 @@ function animateRotation(face, cw, currentTime) {
 		requestAnimationFrame(rotatePieces);
 	})();
 }
-
-// Events
 function mousedown(md_e) {
 	var startXY = pivot.style.transform.match(/-?\d+\.?\d*/g).map(Number),
 			element = md_e.target.closest('.element'),
